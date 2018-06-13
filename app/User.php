@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'reg_no', 'course_name', 'name', 'avatar', 'email', 'bank_name', 'account_no', 'password',
     ];
 
     /**
@@ -26,4 +26,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * ? Why is this even here will it work...
+     * Discover if the user has a signed record.
+     */
+    public function signed()
+    {
+        return $this->hasOne('App\Signed');
+    }
 }

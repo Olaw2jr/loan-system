@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -16,7 +17,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
 
@@ -34,6 +35,12 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest', ['except' => ['logout', 'userLogout']]);
+    }
+
+    public function userLogout()
+    {
+        Auth::guard('web')->logout();
+        return redirect('/');
     }
 }
